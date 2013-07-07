@@ -1,5 +1,8 @@
 # helloworld-app
 
+A very simple completely client-side pedestal application. It displays a
+counter that increments itself every 3 seconds.
+
 You may start the application by running the following commands:
 
 ```
