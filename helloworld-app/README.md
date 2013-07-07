@@ -10,6 +10,9 @@ lein repl
 
 Once it is started, browse to [http://localhost:3000/helloworld-app-dev.html](http://localhost:3000/helloworld-app-dev.html).
 
+To understand what's going on, have a look at [helloworld_app/app](./app/src/helloworld_app/app.cljs)
+or run `lein marg` (with [lein-marginalia set up](https://github.com/fogus/lein-marginalia/#installation))
+and look at `docs/uberdoc.html`.
 
 ## Links
 
