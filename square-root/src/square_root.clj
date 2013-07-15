@@ -62,7 +62,7 @@
 (defn continue-calc [combine-name o n]
   (when (not (or (:good-enough? n)
                  (= (:new-guess n) :NaN)))
-    [{msg/topic :guess :n (:new-guess n)}]))
+    [{::msg/topic :guess :n (:new-guess n)}]))
 
 ;; Configure the application.
 
@@ -107,22 +107,22 @@
   ;;=> [:node-create [:x] :map]
   ;;=> [:value [:x] nil 0]
 
-  (run! app [{msg/topic :accuracy :n 0.01}])
+  (run! app [{::msg/topic :accuracy :n 0.01}])
   ;;=> nil
 
-  (run! app [{msg/topic :x :n 42}])
+  (run! app [{::msg/topic :x :n 42}])
   ;;=> [:value [:x] 0 42]
 
-  (run! app [{msg/topic :guess :n 10}])
+  (run! app [{::msg/topic :guess :n 10}])
   ;;=> [:value [:half] :NaN 7.1]
   ;;=> [:value [:half] 7.1 6.507746478873239]
   ;;=> [:value [:half] 6.507746478873239 6.480796732565069]
   ;;=> [:value [:half] 6.480796732565069 6.4807406986501]
 
-  (run! app [{msg/topic :accuracy :n 0.000001}])
+  (run! app [{::msg/topic :accuracy :n 0.000001}])
   ;;=> [:value [:half] 6.4807406986501 6.480740698407937]
 
-  (run! app [{msg/topic :x :n 50}])
+  (run! app [{::msg/topic :x :n 50}])
   ;;=>[:value [:x] 42 50]
   ;;=>[:value [:half] 6.480740698407937 7.097954193471344]
   ;;=>[:value [:half] 7.097954193471344 7.071118733405411]

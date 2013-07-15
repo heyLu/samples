@@ -96,7 +96,7 @@
 ;; Effect
 
 (defn send-message-to-server [_ _ outbound]
-  [{msg/topic :server :out-message (:sending outbound)}])
+  [{::msg/topic :server :out-message (:sending outbound)}])
 
 
 ;; Emits
@@ -106,8 +106,8 @@
     {:log {}
      :form
      {:transforms
-      {:clear-messages [{msg/topic :outbound} {msg/topic :inbound}]
-       :set-nickname [{msg/topic :nickname (msg/param :nickname) {}}]}}}}])
+      {:clear-messages [{::msg/topic :outbound} {::msg/topic :inbound}]
+       :set-nickname [{::msg/topic :nickname (msg/param :nickname) {}}]}}}}])
 
 (defn- new-deltas [value]
   (vec (mapcat (fn [{:keys [id] :as msg}]
@@ -128,8 +128,8 @@
   (if nickname
     [[:node-create [:chat :nickname] :map]
      [:value [:chat :nickname] nickname]
-     [:transform-enable [:chat :form] :clear-nickname [{msg/topic :nickname}]]
-     [:transform-enable [:chat :form] :send-message [{msg/topic :outbound
+     [:transform-enable [:chat :form] :clear-nickname [{::msg/topic :nickname}]]
+     [:transform-enable [:chat :form] :send-message [{::msg/topic :outbound
                                                       (msg/param :text) {}
                                                       :nickname nickname}]]
      [:transform-disable [:chat :form] :set-nickname]]
@@ -137,7 +137,7 @@
     [[:node-destroy [:chat :nickname]]
      [:transform-disable [:chat :form] :clear-nickname]
      [:transform-disable [:chat :form] :send-message]
-     [:transform-enable [:chat :form] :set-nickname [{msg/topic :nickname
+     [:transform-enable [:chat :form] :set-nickname [{::msg/topic :nickname
                                                       (msg/param :nickname) {}}]]]))
 
 (def sort-order

@@ -22,7 +22,7 @@
 
 (defn receive-messages [app]
   (p/put-message (:input app)
-                 {msg/topic :inbound
+                 {::msg/topic :inbound
                   msg/type :received
                   :text (str "incoming message " (gensym))
                   :nickname (str (gensym))
@@ -38,7 +38,7 @@
 (defn services-fn [message input-queue]
   (when-let [msg (:out-message message)]
     (.setTimeout js/window #(p/put-message input-queue
-                                           {msg/topic :inbound
+                                           {::msg/topic :inbound
                                             msg/type :received
                                             :text (:text msg)
                                             :nickname (:nickname msg)

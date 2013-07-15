@@ -22,7 +22,7 @@
 ;; application every 10 seconds.
 
 (defn receive-messages [app]
-  (p/put-message (:input app) {msg/topic :inbound
+  (p/put-message (:input app) {::msg/topic :inbound
                  msg/type :received
                  :text (str "incoming message " (gensym))
                  :nickname (str (gensym))
@@ -39,7 +39,7 @@
     (when-let [msg (:out-message message)]
       (.setTimeout js/window
                    #(p/put-message (:input app)
-                                   {msg/topic :inbound
+                                   {::msg/topic :inbound
                                     msg/type :received
                                     :text (:text msg)
                                     :nickname (:nickname msg)
@@ -57,7 +57,7 @@
                            (let [data (r/read-string (.-data e))]
                              (.log js/console e)
                              (p/put-message (:input app)
-                                            {msg/topic :inbound
+                                            {::msg/topic :inbound
                                              msg/type :received
                                              :text (:text data)
                                              :nickname (:nickname data)
