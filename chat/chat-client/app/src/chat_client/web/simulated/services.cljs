@@ -23,7 +23,7 @@
 (defn receive-messages [app]
   (p/put-message (:input app)
                  {::msg/topic :inbound
-                  msg/type :received
+                  ::msg/type :received
                   :text (str "incoming message " (gensym))
                   :nickname (str (gensym))
                   :id (util/random-id)})
@@ -39,7 +39,7 @@
   (when-let [msg (:out-message message)]
     (.setTimeout js/window #(p/put-message input-queue
                                            {::msg/topic :inbound
-                                            msg/type :received
+                                            ::msg/type :received
                                             :text (:text msg)
                                             :nickname (:nickname msg)
                                             :id (:id msg)}) 500)

@@ -23,7 +23,7 @@
 
 (defn receive-messages [app]
   (p/put-message (:input app) {::msg/topic :inbound
-                 msg/type :received
+                 ::msg/type :received
                  :text (str "incoming message " (gensym))
                  :nickname (str (gensym))
                  :id (util/random-id)})
@@ -40,7 +40,7 @@
       (.setTimeout js/window
                    #(p/put-message (:input app)
                                    {::msg/topic :inbound
-                                    msg/type :received
+                                    ::msg/type :received
                                     :text (:text msg)
                                     :nickname (:nickname msg)
                                     :id (:id msg)})
@@ -58,7 +58,7 @@
                              (.log js/console e)
                              (p/put-message (:input app)
                                             {::msg/topic :inbound
-                                             msg/type :received
+                                             ::msg/type :received
                                              :text (:text data)
                                              :nickname (:nickname data)
                                              :id (util/random-id)}))) ; TODO: track msg id throughout the system

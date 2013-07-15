@@ -20,7 +20,7 @@
 ;; return the number it was given.
 
 (defn number-transform [old message]
-  (if (= (msg/type message) msg/init) (:value message) (:n message)))
+  (if (= (::msg/type message) msg/init) (:value message) (:n message)))
 
 ;; Create the functions which will be used as "combines". Each of these is
 ;; a pure function.

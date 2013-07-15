@@ -19,7 +19,7 @@
 ;; Transforms
 
 (defn outbound-transform [state message]
-  (case (msg/type message)
+  (case (::msg/type message)
     msg/init (:value message)
     :send-message (let [msg {:id (util/random-id)
                              :time (platform/date)
@@ -35,7 +35,7 @@
     state))
 
 (defn inbound-transform [state message]
-  (case (msg/type message)
+  (case (::msg/type message)
     msg/init (:value message)
     :received (let [msg {:id (:id message) :time (platform/date)
                          :nickname (:nickname message) :text (:text message)}]
@@ -43,7 +43,7 @@
     :clear-messages (do (log/debug :in :clear-messages :transform :inbound) ( assoc state :received []))))
 
 (defn nickname-transform [state message]
-  (case (msg/type message)
+  (case (::msg/type message)
     msg/init (:value message)
     :set-nickname (:nickname message)
     :clear-nickname nil))

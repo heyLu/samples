@@ -18,7 +18,7 @@
             [domina :as dom]))
 
 (defn count-model [old-state message]
-  (condp = (msg/type message)
+  (condp = (::msg/type message)
     msg/init (:value message)
     :inc (inc old-state)))
 
@@ -30,7 +30,7 @@
 (def count-app {:transform {:count {:init 0 :fn count-model}}})
 
 (defn receive-input [input-queue]
-  (p/put-message input-queue {::msg/topic :count msg/type :inc})
+  (p/put-message input-queue {::msg/topic :count ::msg/type :inc})
   (.setTimeout js/window #(receive-input input-queue) 3000))
 
 (defn ^:export main []
